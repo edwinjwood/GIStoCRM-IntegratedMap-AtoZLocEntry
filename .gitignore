@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/CarrierEsriToDynamics/App.config
+/CarrierEsriToDynamics/App.Debug.config
+/CarrierEsriToDynamics/App.Release.config
+/CarrierEsriToDynamics/App.Staging.config
