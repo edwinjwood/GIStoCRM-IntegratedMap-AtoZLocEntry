@@ -1,0 +1,722 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="map.aspx.cs" Inherits="CarrierEsriToDynamics.map" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Carrier Maps</title>
+
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="https://js.arcgis.com/4.7/"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <!--script src="//cdn.opencpu.org/opencpu-0.4.js"></!--script-- -->
+
+</head>
+<body>
+    <%--<div class="loader2"></div>
+    <div class="loader"></div>--%>
+
+    <!-- Initial Modal -->
+    <div class="modal fade centered-modal" id="initModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success" style="text-align:center;">
+                    <h3 class="text-white" style="text-align:center;"> !!!Opportunity Type!!!</h3>
+                </div>
+                <div class="modal-footer" style="text-align:center;">
+                    <button id="NewOppbutton" type="button" onclick="NewOppEvent()" class="btn btn-primary">New Opportunity</button>
+                    <button id="ExistingOppbutton" type="button" onclick="ExistingOppEvent()" class="btn btn-primary">Existing Opportunity</button>
+                    <div class="row" id="oppIdfornew" style="padding-top:10px; display:none;">
+                        <label>Enter Your Opportunity ID :</label>
+                        <input type="text" id="oppID" />
+                        <button type="button" onclick="searchOpp()" class="btn btn-primary"> Submit </button>
+
+                    </div>
+                    <div class="row" id="notification" style="padding-top:10px; display:none;">
+                        <label>Enter all your A locations first in top right corner search bar</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="viewDiv">
+
+        <div class="loader3" style="display:none"></div>
+        <div class="loader4" style="display:none"></div>
+
+
+
+        <!-- Bulk Upload code goes here -->
+        <button type="button" id="bulkButton" class="my_button" data-toggle="modal" data-target=".bd-example" style="display:none;">Bulk Upload</button>
+
+        <!-- Modal to bulk Upload -->
+
+        <div class="modal fade bd-example" id="BulkUploadModel" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xlg modal-lg" role="dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Bulk Upload</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body clearfix">
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label style="padding-bottom:8px;">Download Template</label> <br />
+                                <a href="location_sheet/Carrier_locations_Template.csv" class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-save"></span> Download Template
+                                </a>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="file" id="csvfile" style="padding-bottom:10px;" />
+                                <button id="UploadButton" style="" type="button" onclick="Upload()" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-open"></span> Upload the CSV</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-12" style="padding-top:10px;">
+                            <label> Instruction </label>
+                            <ul style="">
+                                <li>Download the template for Csv file by clicking the Download Template button</li>
+                                <li>Please follow the template columns and fill out the value according to it.</li>
+                                <!--<li>Length of location name should not exceed 38 characters, otherwise it will set to by default "Z + index number"</li> -->
+                                <li>Please fill out address as street address, city, state and zip or Latitude, and Longitude only.</li>
+                                <li>Please do not add any comma in any of the columns.</li>
+                                <li>You can leave Latitude and Longitude column empty, if you don't have it.</li>
+                                <li>You can also leave address, city, state, zip column empty if you have Longitude and Latitude.</li>
+                            </ul>
+                        </div>
+                        <div class="form-group col-xs-12" style="padding-top:10px; overflow:scroll">
+                            <label> Table </label>
+                            <div class="table-responsive">
+                                <div class="bodycontainer scrollable">
+                                    <table class="table table-bordered table-hover table-striped table-condensed table-scrollable" id="tableAddRow" style="overflow:scroll">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center">Index</th>
+                                                <th style="text-align:center">All <input type="checkbox" name="checkbox" id="selectAll" /></th>
+                                                <th style="width:10%;text-align:center; ">Name</th>
+                                                <th style="width:20%; text-align:center">Street Address</th>
+                                                <th style="width:10%;text-align:center;">City</th>
+                                                <th style="text-align:center">State</th>
+                                                <th style="width:10%; text-align:center">Zip</th>
+                                                <th style="width:10%; text-align:center">Fiber On-net <input type="checkbox" name="checkbox" id="selectAllOnNet" /></th>
+                                                <th style="width:10%; text-align:center">Fiber Off-net <input type="checkbox" name="checkbox" id="selectAllOffNet" /></th>
+                                                <th style="width:10%; text-align:center">EOC <input type="checkbox" name="checkbox" id="selectAllEoc" /></th>
+                                                <th style="text-align:center">
+                                                    Product
+                                                    <select id="selectAllProduct">
+                                                        <option value="DIA">DIA</option>
+                                                        <option value="Dark Fiber">Dark Fiber</option>
+                                                        <option value="EPL">EPL</option>
+                                                        <option value="EVPL">EVPL</option>
+                                                        <option value="Transport/Back Haul">Transport/Back Haul</option>
+                                                    </select>
+
+                                                </th>
+                                                <th style="text-align:center">
+                                                    Bandwidth
+                                                    <select id="selectAllBandWidth">
+
+                                                        <option value="2">2Mb</option>
+                                                        <option value="3">3Mb</option>
+                                                        <option value="5">5Mb</option>
+                                                        <option value="6">6Mb</option>
+                                                        <option value="10">10Mb</option>
+                                                        <option value="20">20Mb</option>
+                                                        <option value="30">30Mb</option>
+                                                        <option value="40">40Mb</option>
+                                                        <option value="50">50Mb</option>
+                                                        <option value="60">60Mb</option>
+                                                        <option value="70">70Mb</option>
+                                                        <option value="80">80Mb</option>
+                                                        <option value="90">90Mb</option>
+                                                        <option value="100">100Mb</option>
+                                                        <option value="150">150Mb</option>
+                                                        <option value="200">200Mb</option>
+                                                        <option value="250">250Mb</option>
+                                                        <option value="300">300Mb</option>
+                                                        <option value="350">350Mb</option>
+                                                        <option value="400">400Mb</option>
+                                                        <option value="450">450Mb</option>
+                                                        <option value="500">500Mb</option>
+                                                        <option value="550">550Mb</option>
+                                                        <option value="600">600Mb</option>
+                                                        <option value="650">650Mb</option>
+                                                        <option value="700">700Mb</option>
+                                                        <option value="750">750Mb</option>
+                                                        <option value="800">800Mb</option>
+                                                        <option value="850">850Mb</option>
+                                                        <option value="900">900Mb</option>
+                                                        <option value="950">950Mb</option>
+                                                        <option value="1000">1Gb</option>
+                                                        <option value="2000">2Gb</option>
+                                                        <option value="3000">3Gb</option>
+                                                        <option value="4000">4Gb</option>
+                                                        <option value="5000">5Gb</option>
+                                                        <option value="6000">6Gb</option>
+                                                        <option value="7000">7Gb</option>
+                                                        <option value="8000">8Gb</option>
+                                                        <option value="9000">9Gb</option>
+                                                        <option value="10000">10Gb</option>
+                                                        <option value="100000">100Gb</option>
+                                                        <option value="none"></option>
+                                                    </select>
+
+                                                </th>
+                                                <th style="text-align:center">
+                                                    Loc Type
+
+                                                    <select id="selectLocationType">
+                                                        <option value=" "> </option>
+                                                        <option value="New">New</option>
+                                                        <option value="Existing">Existing</option>
+                                                    </select>
+                                                </th>
+                                                <th style="text-align:center; ">Latitude</th>
+                                                <th style="text-align:center; ">Longitude</th>
+                                            </tr>
+                                        </thead>
+                                        <%--
+                                        <tbody>
+                                            <tr id="tr_0">
+                                                <td><input type="text" id="index_t" class="form-control" /></td>
+                                                <td><input type="text" id="name_t" class="form-control" /></td>
+                                                <td><input type="text" id="street_t" class="form-control" /></td>
+                                                <td><input type="text" id="city_t" class="form-control" /></td>
+                                                <td><input type="text" id="state_t" class="form-control" /></td>
+                                                <td><input type="text" id="zip_t" class="form-control" /></td>
+                                                <td><input type="text" id="fiber-onnet_t" class="form-control" /></td>
+                                                <td><input type="text" id="fiber-offnet_t" class="form-control" /></td>
+                                                <td><input type="text" id="eoc_t" class="form-control" /></td>
+                                                <td><input type="text" id="product_t" class="form-control" /></td>
+                                                <td><input type="text" id="bandwidth_t" class="form-control" /></td>
+                                            </tr>
+                                        </tbody>
+                                        --%>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <%--<div style="margin-top:20px;"><div style="overflow:scroll;overflow:auto;height:300px;" id="output"></div></div>--%>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="addAllLocationFromTableToCart()">Add to Location Cart</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- End of Bulk Upload-->
+        <!-- eSpirit Account code goes here -->
+        <button type="button" id="accountButton" style="display:none;" class="my_button2" onclick="BringAllAccountInfo()">Account Info</button>
+
+
+        <div class="modal fade" id="accountInfoModal">
+            <div class="modal-dialog" role="dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Account Information</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea rows="10" cols="50" id="justthrowcontent"></textarea>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="overlay">
+            <%--<div class="col-xs-2">
+                <div class="modal-arrow" id="left">
+
+                </div>
+            </div>--%>
+
+            <div class="modal-dialog">
+                <div class="modal-content" style="animation-name:example2; animation-duration:4s;">
+                    <h6 style="text-align:center;padding-top:2px;font-size:larger; font-weight: bold; animation-name:example; animation-duration:4s; color: red;">Enter Address for A Location in Search . . . &#x21E8; &#x21E8; &#x21E8; &#x21E8; &#x21E8; &#x21E8; </h6>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div id="locationView" style="height:200px;width:220px;">
+            <!--Panel-->
+            <%--<div id="cardDisplay1" class="card" style="width:300px;">
+
+                <div id="LocHeader" class="card-header primary-color white-text">
+                    <h6 id="LocHeader1">Welcome!</h6>
+                    <select class="form-control " id="selectedAccount">
+                        <option value=""> </option>
+                        <option style="" value="Other">New Logo</option>
+                    </select>
+                </div>
+
+                <div id="cardDisplay" style="display:none;">
+                    <div class="card-body" style="min-height:50px; max-height:250px; overflow:auto;" id="addLocationsCard">
+                        --%>
+
+                        <%--                <ul id="list" style="font-size:1.0rem;"></ul>--%>
+                        <%--   <div id="some_div" class="someDiv">
+                        </div>
+                    </div>
+                    <div class="card-footer" style="text-align:center;">
+                        <a class="btn btn-primary" onclick="GoToForm()">Create Opportunity</a>
+                    </div>
+                </div>
+            </div>--%>
+
+
+
+            <!-- Modal for Business Account -->
+
+            <div class="modal fade" id="LocInfo">
+                <div class="modal-dialog" role="dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Current Location</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="buisnessAcountAlert"></div>
+                            <div class="form-group" style=" ">
+                                <label id="slachange">Business Name A</label>
+                                <input type="text" class="form-control request-sitecontact" id="sla" maxlength="39" placeholder="Business Name" />
+                            </div>
+                            <div class="form-group" style=" ">
+                                <label>Location Type</label>
+                                <select class="form-control" id="locationtype">
+                                    <option value=" "> </option>
+                                    <option value="New">New</option>
+                                    <option value="Existing">Existing</option>
+                                    <option value="NearNet">NearNet</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Site Address</label>
+                                <input type="text" class="form-control request-siteaddress" value="" id="address" readonly="readonly" />
+                            </div>
+                            <div class="form-group">
+                                <label> STE / APT / BLDG / FLR / RM </label>
+                                <input type="text" class="form-control request-apt" value="" id="apartment" name="apartment" />
+                                <span class="smaller" style="color:red"> * Example: Apt 3B / Ste 3000, etc..</span>
+                            </div>
+                            <div class="form-group" id="displayAZ" style="display:none">
+                                <label>Attach A to Z</label>
+                                <select class="form-control request-AZ" id="AllAZ">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Coordinates</label>
+                                <input type="text" id="lat_lang" class="form-control request-coordinates" value="" readonly="readonly" />
+                            </div>
+                            <div class="form-group" id="bandwidthdisplay">
+                                <label>Bandwidth Requested</label>
+                                <select class="form-control request-bandwidth" runat="server" id="bandwidth" placeholder="Select Bandwidth">
+                                    <option value=""> </option>
+                                    <option value="2">2Mb</option>
+                                    <option value="3">3Mb</option>
+                                    <option value="5">5Mb</option>
+                                    <option value="6">6Mb</option>
+                                    <option value="10">10Mb</option>
+                                    <option value="20">20Mb</option>
+                                    <option value="30">30Mb</option>
+                                    <option value="40">40Mb</option>
+                                    <option value="50">50Mb</option>
+                                    <option value="60">60Mb</option>
+                                    <option value="70">70Mb</option>
+                                    <option value="80">80Mb</option>
+                                    <option value="90">90Mb</option>
+                                    <option value="100">100Mb</option>
+                                    <option value="150">150Mb</option>
+                                    <option value="200">200Mb</option>
+                                    <option value="250">250Mb</option>
+                                    <option value="300">300Mb</option>
+                                    <option value="350">350Mb</option>
+                                    <option value="400">400Mb</option>
+                                    <option value="450">450Mb</option>
+                                    <option value="500">500Mb</option>
+                                    <option value="550">550Mb</option>
+                                    <option value="600">600Mb</option>
+                                    <option value="650">650Mb</option>
+                                    <option value="700">700Mb</option>
+                                    <option value="750">750Mb</option>
+                                    <option value="800">800Mb</option>
+                                    <option value="850">850Mb</option>
+                                    <option value="900">900Mb</option>
+                                    <option value="950">950Mb</option>
+                                    <option value="1000">1Gb</option>
+                                    <option value="2000">2Gb</option>
+                                    <option value="3000">3Gb</option>
+                                    <option value="4000">4Gb</option>
+                                    <option value="5000">5Gb</option>
+                                    <option value="6000">6Gb</option>
+                                    <option value="7000">7Gb</option>
+                                    <option value="8000">8Gb</option>
+                                    <option value="9000">9Gb</option>
+                                    <option value="10000">10Gb</option>
+                                    <option value="100000">100Gb</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox" style="padding-left:25px;">
+                                    <input type="checkbox" id="fiber" class="request-requestfiber" />Request Fiber Loop On-Net Serviceability
+                                </label>
+                                <label class="checkbox" style="padding-left:25px;">
+                                    <input type="checkbox" id="offnet" class="request-requestoffnet" />Request Fiber Loop Off-Net Serviceability
+                                </label>
+                                <div class="form-group">
+                                    <label class="checkbox" style="padding-left:25px;">
+                                        <input type="checkbox" runat="server" id="diversity" value="diversity_false" class="request-requesteoc" onclick="showDiversityType()" /> Diversity?
+                                    </label>
+                                </div>
+                                <div id="divdiversityType" style="display:none;">
+                                    <label>Diversity Type:</label>
+                                    <select class="form-control" id="diversitytype" name="diversitytype" placeholder="Select Diversity Type">
+                                        <option value=""></option>
+                                        <option value="Dedicated Physical Ring"> Dedicated Physical Ring </option>
+                                        <option value="Dedicated Virtual Ring"> Dedicated Virtual Ring </option>
+                                        <option value="Dual Entrance Facility"> Dual Entrance Facility </option>
+                                        <option value="Non Collapsed Last Mile Lateral"> Non Collapsed Last Mile Lateral </option>
+                                        <option value="Non Collapsed Lateral & Dual Entrance"> Non Collapsed Lateral & Dual Entrance </option>
+                                        <option value="POP Diversity with Router Diversity"> POP Diversity with Router Diversity </option>
+                                        <option value="Redundant CPE Router/Switch 10G Port"> Redundant CPE Router/Switch 10G Port </option>
+                                        <option value="Redundant CPE Router/Switch 1G Port"> Redundant CPE Router/Switch 1G Port </option>
+                                        <option value="Single Pop with Router Diversity"> Single Pop with Router Diversity </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" id="showregion" style="display:none;">
+                                <label>Region:</label>
+                                <select class="form-control request-region" runat="server" id="region" placeholder="Select Region">
+                                    <option>Carrier TC</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="showclassofserviceandsolution" style="display:none">
+                                <div class="form-group">
+                                    <label>Class of Service: </label>
+                                    <select class="form-control request-region" id="cos" name="cos" placeholder="Select class of service">
+                                        <option value=""></option>
+                                        <option value="Cross Connect">Cross Connect</option>
+                                        <option value="DS0">DS0</option>
+                                        <option value="DS1">DS1</option>
+                                        <option value="DS2">DS2</option>
+                                        <option value="DS3">DS3</option>
+                                        <option value="DS3 (MUX)">DS3 (MUX)</option>
+                                        <option value="Ethernet">Ethernet</option>
+                                        <option value="OC12/622Mb">OC12/622Mb</option>
+                                        <option value="OC195/10Gb">OC195/10Gb</option>
+                                        <option value="OC3/10Mb">OC3/10Mb</option>
+                                        <option value="OC48/2.5Mb">OC48/2.5Mb</option>
+                                        <option value="Wavelength Service">Wavelength Service</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="showinterfacespeed" style="display: none;">
+                                    <label>Interface Speed: </label>
+                                    <select class="form-control request-region" id="interfacespeed" name="interfacespeed" placeholder="Interface Speed">
+                                        <option value=""></option>
+                                        <option id="is100" value="100Mb" style="display:block">100Mb</option>
+                                        <option id="is1" value="1Gb" style="display:block">1Gb</option>
+                                        <option id="is10" value="10Gb" style="display:block">10Gb</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Proposed Solution: </label>
+                                    <textarea id="proposedsolution" rows="4" cols="70" maxlength="200" style="max-width: 100%; overflow: hidden; " placeholder="type propose solution here..."></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="addTheLocationToCard()">Add Request</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Replacing form of runnat server -->
+            <div class="modal fade" id="ConnectToDynamcis">
+                <div class="modal-dialog" role="dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Submit to Dynamics</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div id="dynamicsFormAlert" style="padding:5px;"></div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Spirit Employee User Name</label>
+                                <input type="text" id="employee_username" class="form-control request-coordinates" readonly="readonly" />
+                            </div>
+                            <div class="form-group" id="acc_name_view" style="display:none;">
+                                <label> Account Name </label>
+                                <input type="text" id="o_account_name" class="form-control" placeholder="Enter the Account Name" />
+                            </div>
+                            <div class="form-group" id="acc_num_view" style="display:none;">
+                                <label> Account Number </label>
+                                <input type="text" id="o_account_number" class="form-control" placeholder="Enter the Account Number" />
+                            </div>
+                            <div class="form-group" style="display:none">
+                                <label> Account ID </label>
+                                <input type="text" id="o_account_id" class="form-control" placeholder="Enter the Account ID" />
+                            </div>
+                            <div class="form-group">
+                                <label>Opportunity Name</label>
+                                <input type="text" class="form-control request-customer-name" id="opportunity_name" placeholder="Type Opportunity Name" maxlength="49" required="required" />
+                            </div>
+                            <div id="display_newOppInfo" style="display:none">
+                                <div class="form-group">
+                                    <label>Contract Type</label>
+                                    <select class="form-control request-term" id="opportunity_contract">
+                                        <option value="New">New</option>
+                                        <option value="Upgrade">Upgrade</option>
+                                        <option value="Renewal">Renewal</option>
+                                        <option value="CoterminousAdds">Coterminous Adds</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Carrier Type</label>
+                                    <select class="form-control request-term" id="opportunity_carriertype">
+
+                                        <option value="End User">End User</option>
+                                        <option value="Transport">Transport</option>
+                                        <option value="FTTC">FTTC</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="display_FTTCtype" style="display:none">
+                                    <label>FTTC Type</label>
+                                    <select class="form-control request-term" id="opportunity_FTTCtype">
+                                        <option value="Macro Lit">Macro Lit</option>
+                                        <option value="Macro Dark">Macro Dark</option>
+                                        <option value="Small Cell Lit">Small Cell Lit</option>
+                                        <option value="Small Cell Dark">Small Cell Dark</option>
+                                    </select>
+                                </div>
+                                <%--<div class="form-group">
+                                    <label>Contract Term</label>
+                                    <select class="form-control request-term" id="opportunity_term">
+                                        <option></option>
+                                        <option>M-M</option>
+                                        <option>1yr</option>
+                                        <option>2yr</option>
+                                        <option>3yr</option>
+                                        <option>4yr</option>
+                                        <option>5yr</option>
+                                        <option>6yr</option>
+                                        <option>7yr</option>
+                                        <option>8yr</option>
+                                        <option>9yr</option>
+                                        <option>10yr</option>
+                                        <option>15yr</option>
+                                        <option>20yr</option>
+                                        <option>25yr</option>
+                                        <option>50yr</option>
+                                    </select>
+                                </div>--%>
+
+                                <div class="form-group">
+                                    <label>Contract Term</label>
+                                    <div class="multiselect">
+                                        <div class="selectBox " onclick="showCheckboxes()">
+                                            <select class="form-control">
+                                                <option id="selectMoreTerm">Select one or more term</option>
+                                            </select>
+                                            <div class="overSelect"></div>
+                                        </div>
+                                        <div id="checkboxes">
+                                            <label for="M-M">
+                                                <input type="checkbox" id="M-M" />M-M
+                                            </label>
+                                            <label for="1">
+                                                <input type="checkbox" id="1yr" />1yr
+                                            </label>
+                                            <label for="2">
+                                                <input type="checkbox" id="2yr" />2yr
+                                            </label>
+                                            <label for="3">
+                                                <input type="checkbox" id="3yr" />3yr
+                                            </label>
+                                            <label for="4">
+                                                <input type="checkbox" id="4yr" />4yr
+                                            </label>
+                                            <label for="5">
+                                                <input type="checkbox" id="5yr" />5yr
+                                            </label>
+                                            <label for="6">
+                                                <input type="checkbox" id="6yr" />6yr
+                                            </label>
+                                            <label for="7">
+                                                <input type="checkbox" id="7yr" />7yr
+                                            </label>
+                                            <label for="8">
+                                                <input type="checkbox" id="8yr" />8yr
+                                            </label>
+                                            <label for="9">
+                                                <input type="checkbox" id="9yr" />9yr
+                                            </label>
+                                            <label for="10">
+                                                <input type="checkbox" id="10yr" />10yr
+                                            </label>
+                                            <label for="15">
+                                                <input type="checkbox" id="15yr" />15yr
+                                            </label>
+                                            <label for="20">
+                                                <input type="checkbox" id="20yr" />20yr
+                                            </label>
+                                            <label for="25">
+                                                <input type="checkbox" id="25yr" />25yr
+                                            </label>
+                                            <label for="50">
+                                                <input type="checkbox" id="50yr" />50yr
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%--<div class="form-group">
+                                <label for="date">Estimated Close Date</label>
+                                <input type="date" class="form-control" id="EstimatedCloseDate" required="required" />
+                            </div>
+
+                            <div class="form-group">
+                                <label> Estimated Revenue </label>
+                                <input type="number" class="form-control" id="EstimatedRevenue" placeholder="Type Estimated Revenue" required="required" />
+                            </div>--%>
+
+                            <div class="form-group">
+                                <label>Service Locations</label>
+                                <ul id="service_locations" style="font-size:1.0rem;"></ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="ConnectToDynamics()">Submit to Dynamics</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal for Success-->
+            <div class="modal fade centered-modal" id="SuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-image">
+                            <svg viewBox="0 0 32 32" style="fill:#48DB71"><path d="M1 14 L5 10 L13 18 L27 4 L31 8 L13 26 z"></path></svg>
+                        </div>
+                        <h3 style="text-align:center;"> !!!Opportunity Created!!!</h3>
+
+                        <div class="modal-footer" style="text-align:center;">
+                            <button type="button" onclick="redirectDynamcics()" class="btn btn-primary">Go To Dynamics</button>
+                            <button type="button" onclick="reloadPage()" class="btn btn-primary">Create More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <form id="form1" runat="server">
+        <div class="modal fade" id="formOpp" runat="server">
+            <div class="modal-dialog" role="dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create The Opportunity</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Spirit Employee User Name</label>
+                            <input type="text" id="Spirit_User_Name" runat="server" class="form-control request-coordinates" readonly="readonly" />
+                        </div>
+                        <div class="form-group" id="">
+                            <label> Account Name </label>
+                            <input type="text" id="accountName" runat="server" class="form-control" placeholder="Enter the Account Name" />
+                        </div>
+                        <div class="form-group" id="">
+                            <label> Account Number </label>
+                            <input type="text" id="account_number" runat="server" class="form-control" placeholder="Enter the Account Number" />
+                        </div>
+                        <div class="form-group">
+                            <label> Account ID </label>
+                            <input type="text" id="accountID" runat="server" class="form-control" placeholder="Enter the Account ID" />
+                        </div>
+                        <div class="form-group">
+                            <label>Opportunity Name</label>
+                            <input type="text" class="form-control request-customer-name" runat="server" id="c_name" placeholder="Type Opportunity Name" maxlength="49" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label>Term:</label>
+                            <select class="form-control request-term" id="term" runat="server" placeholder="Select Term" required="required">
+                                <option></option>
+                                <option>M-M</option>
+                                <option>1yr</option>
+                                <option>2yr</option>
+                                <option>3yr</option>
+                                <option>4yr</option>
+                                <option>5yr</option>
+                                <option>7yr</option>
+                                <option>10yr</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Service Locations</label>
+                            <ul id="serviceLocations" style="font-size:1.0rem;" runat="server"></ul>
+                            <input type="text" runat="server" id="cheat_locations" style="display:none;" />
+                        </div>
+                    </div>
+                    <div class="modal-footer" id="tryy" runat="server" style="display:block;">
+                        <asp:Button runat="server" CssClass="btn btn-primary" ID="createOPP" OnCommand="createOPP_Command" Text="Submit to Dynamics" />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="js/main1.js"></script>
+
+</body>
+</html>

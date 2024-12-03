@@ -1,0 +1,12 @@
+﻿<Project ToolsVersion="4.0"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<ExcludeFromPackageFolders Include="Internal">
+			<FromTarget>CarrierEsriToDynamicsc.wpp.targets</FromTarget>
+		</ExcludeFromPackageFolders>
+		<ExcludeFromPackageFiles Include="App.PROD.config;App.UAT.config;App.UAT01.config;Connections.Prod.config;Connections.UAT.config;Connections.UAT01.config;
+								 Web.ACI PROD.config;Web.ACI UAT 01.config;">
+			<FromTarget>CarrierEsriToDynamicsc.wpp.targets</FromTarget>
+		</ExcludeFromPackageFiles>
+	</ItemGroup>
+</Project>

@@ -1,0 +1,599 @@
+html,
+body,
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  color: rgb(38, 139, 135);
+  position: relative;
+
+
+}
+
+#viewDiv {
+   
+  /*pointer-events: none;
+  */
+  opacity: 1;
+}
+
+
+#locationView{
+  position: absolute;
+  bottom:22%;
+  bottom: 200px;
+  left:200px;
+  left:0.05%;
+  margin-left: 18px;
+
+}
+
+#list {
+    padding:0px;
+    font-size: 12px;
+}
+.cardDiv {
+    padding: 10px 10px 0px 20px;
+    margin: 4px 0px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.removeLocButton{
+    width: 23px;
+    height: 23px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.ALocButton{
+    width: 23px;
+    height: 23px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.ExistingLocButton{
+    width: 23px;
+    height: 23px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+#doneA {
+    cursor: pointer;
+}
+.cardDiv:nth-child(even) {
+    background-color:#cfdacf;
+}
+
+#overlay {
+   position: absolute;
+   top: 0px;
+   right: 20px;
+   bottom: 0;
+   left: 0;
+   z-index: 10040;
+   overflow: auto;
+   overflow-y: auto;
+}
+
+/* Standard syntax */
+@keyframes example {
+    from {color: red;}
+    to {color: blue;}
+
+    /*0%   {background-color: blue;}
+    25%  {background-color: yellow;}
+    50%  {background-color: red;}
+    100% {background-color: green;}*/
+}
+@keyframes example2{
+    
+    0%   {background-color: blue;}
+    25%  {background-color: yellow;}
+    50%  {background-color: red;}
+    100% {background-color: green;}
+}
+/*.modal-arrow {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 3%;
+  bottom: auto;
+  left: 0px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 25px 35px 25px 0;
+  border-color: transparent #ffffff transparent transparent;
+  -moz-filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, .5));
+  
+  -o-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .5));
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, .5));
+}
+
+#right {
+  width: inherit;
+  z-index: 1;
+  left: 7px;
+}
+
+.modal-arrow {
+  margin-top: 0%;
+}*/
+
+.smaller{
+    font-size: 10px;
+}
+
+
+.loader2 {
+  position: fixed;
+  top: 40%;
+  left: 45%;
+  background: white;
+  background-image: url("https://www.segra.com/wp-content/uploads/2019/01/logo.png");
+  background-position:center;  
+  background-size:contain;
+  background-size:95%;
+  background-repeat:no-repeat;
+  border: 16px solid transparent;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  
+}
+.loader {
+    position: fixed;
+    top: 40%;
+    left: 45%;
+    
+  border: 16px solid #841f54;
+  border-radius: 50%;
+  border-top: 16px solid #0034ad;
+  border-right: 16px solid #0034ad;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+.loader3 {
+position: fixed;
+  top: 40%;
+  left: 45%;
+  background: white;
+  background-image: url("https://www.segra.com/wp-content/uploads/2019/01/logo.png");
+  background-position:center;  
+  background-size:contain;
+  background-size:95%;
+  background-repeat:no-repeat;
+  border: 16px solid transparent;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  
+}
+.loader4 {
+    position: fixed;
+    top: 40%;
+    left: 45%;
+    
+  border: 16px solid #841f54;
+  border-radius: 50%;
+  border-top: 16px solid #0034ad;
+  border-right: 16px solid #0034ad;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.jumbotron {
+  margin: 0px auto;
+  background: #EEEEEE;
+  color: blue;
+  min-height: 250px;
+}
+.row-header {
+  margin: 0px auto;
+  padding: 0px 0px;
+}
+body {
+  padding: 0px 0px 0px 0px;
+  z-index: 0;
+}
+.row-content {
+  margin: 0px auto;
+  border-bottom: 1px ridge;
+  min-height: 523px;
+}
+.row-footer {
+  margin: 0px auto;
+  min-height: 120px;
+  background-color: #AfAfAf;
+}
+@media (min-width: 768px) {
+  .modal-xl {
+    width: 1000px;
+   max-width:1200px;
+  }
+}
+
+.centered-modal.in {
+    display: flex !important;
+}
+.centered-modal .modal-dialog {
+    margin: auto;
+}
+
+.modal-image {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #48DB71;
+  padding: 11px 10px 2px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+h3 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: .5em;
+}
+
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+    background-color: white;
+  }
+
+    .ui-button.custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+    background: white;
+  }
+  .ui-widget.custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+    background: white
+  }
+
+.my_button  
+    {  
+        position: absolute;  
+        z-index: 10;
+        top: 100px;
+        right: 15px;
+    }
+
+@media (min-width: 992px) {
+  .modal-xlg {
+    width: 1200px;
+  }
+}
+.bodycontainer { max-height: 450px; width: 100%; margin: 0; overflow-y: auto; }
+.table-scrollable { margin: 0; padding: 0; }
+
+/*td, input {
+    text-align:center;
+}*/
+
+.my_button2  
+    {  
+        position: absolute;  
+        z-index: 10;
+        top: 135px;
+        right: 15px;
+    }
+
+
+
+/*.multiselect {
+  width: 200px;
+}*/
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  /*width: 100%;*/
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  border: .5px #dadada solid;
+ 
+}
+
+#checkboxes label {
+  display: block;
+  margin-left: 1rem;
+  margin-right:1rem;
+  margin-bottom:0rem;
+}
+
+#checkboxes input {
+  margin-left: .5rem;
+  margin-right:1rem;
+}
+
+/*#checkboxes label:hover {
+  background-color: #1e90ff;
+}*/
+
+.currencyinput {
+    border: 1px inset #ccc;
+}
+.currencyinput input {
+    border: 0;
+}
+
+.errorInput{
+    border-color:red;
+}
+
+.modal { overflow: auto !important; }
+
+.invalid-cell{
+    border-color: red;
+    color: red;
+}
+
+.info{
+    align-items:flex-end;
+
+}
+
+.custom-file-control:before{
+  content: "Browse";
+}
+.custom-file-control:after{
+  content: "Add files..";
+}
+
+.gly-spin {
+  -webkit-animation: spin 2s infinite linear;
+  -moz-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+}
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@-o-keyframes spin {
+  0% {
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+.gly-rotate-90 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.gly-rotate-180 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.gly-rotate-270 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+.gly-flip-horizontal {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -webkit-transform: scale(-1, 1);
+  -moz-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+.gly-flip-vertical {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -webkit-transform: scale(1, -1);
+  -moz-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
+  transform: scale(1, -1);
+}
+
+@media(max-width:992px){
+ .wrapper{
+  width:100%;
+} 
+}
+.panel-heading {
+  font-size:10px;
+  padding: 0;
+	border:0;
+}
+.panel-title>a, .panel-title>a:active{
+	display:block;
+	padding:15px;
+  color:#555;
+  font-size:10px;
+  font-weight:bold;
+	text-transform:uppercase;
+	letter-spacing:1px;
+  word-spacing:3px;
+	text-decoration:none;
+}
+.panel-heading  a:before {
+   font-family: 'Glyphicons Halflings';
+   content: "\e114";
+   float: right;
+   transition: all 0.5s;
+   padding:17px;
+}
+.panel-heading.active a:before {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
+    padding-right:17px;
+}
+
+.panel-fonts{
+    font-size:10px;
+}
+
+.panel-title-heading{
+    display:block;
+	padding-left:25px;
+    padding-top:15px;
+  color:#555;
+  font-size:10px;
+  font-weight:bold;
+	text-transform:uppercase;
+	letter-spacing:1px;
+  word-spacing:3px;
+	text-decoration:none;
+}
+
+.cos-container {
+    width: 100% !important;
+}
+
+.btn-group open {
+    width: 533px;
+}
+
+button.multiselect.dropdown-toggle.btn.btn-default {
+    width: 574px;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #268B87;
+    padding: 5px;
+}
+
+.multiselect-container {
+    width: 565px;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #268B87;
+    padding: 5px;
+}
+ul.multiselect-container.dropdown-menu {
+    overflow: auto;
+    height: 167px;
+}
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
+    background-color: #eee;
+}
+
+.caret {
+    display: none;
+}
+
+.dropdown-toggle::after {
+    margin-left: 33.25rem;
+}
+
+.multiselect-container > li > a > label.checkbox {
+    color: #268B87;
+}
+.dropdown-menu > li > a {
+    pointer-events: visible;
+    color: #268B87;
+}
+.multiselect-selected-text
+{
+    display:none;
+}
+
+
+/* ----- New CSS - 2023 */
+
+.segraMap_section-container {
+    border: 1px solid #999;
+    padding: 15px;
+}
+
+.segraMap_section-container .btn-group,
+.segraMap_section-container .btn-group button
+{
+    max-width: 100% !important;
+}
+
+.segraMap_section-container .dropdown-toggle::after {
+    margin-left: 32rem;
+}
+
+.segraMap_section-container .section-content {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #d9d9d9;
+}
+
+.segraMap_section-container .section-content.first-section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#sectionHolder_FSR,
+#sectionHolder_ONR {
+    display: none;
+}

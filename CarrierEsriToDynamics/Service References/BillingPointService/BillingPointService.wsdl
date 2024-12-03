@@ -1,0 +1,3954 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://hickorytech.com/suitesolution/client/service" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BillingPointService" targetNamespace="http://hickorytech.com/suitesolution/client/service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_IBillingPointService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Lax />
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp />
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssUsernameToken10 />
+              </wsp:Policy>
+            </sp:UsernameToken>
+          </wsp:Policy>
+        </sp:SignedSupportingTokens>
+        <sp:Wss10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:MustSupportRefKeyIdentifier />
+            <sp:MustSupportRefIssuerSerial />
+          </wsp:Policy>
+        </sp:Wss10>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WebHttpBinding_IBillingPointServiceRest_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <http:BasicAuthentication xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://hickorytech.com/suitesolution/client/service">
+      <xsd:element name="GetBillingPointProfile">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBillingPointProfileResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetBillingPointProfileResult" nillable="true" type="tns:BillingPointProfileData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="BillingPointProfileData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing billing point profile data.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AdditionalUser" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The name of the user that is authorized to perform changes to the billing point data.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AdditionalUserPassword" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The password required to perform changes to the billing point for the additional authorized user.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AdditionalUserPasswordHint" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The question or hint to suggest the password for the additional authorized user.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AuthorizedPassword" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The password required to perform changes to the billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AuthorizedPasswordHint" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The question or hint to suggest the authorization password.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Contact2" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ User-defined contact information (1 of 2 fields).
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Contact3" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ User-defined contact information (2 of 2 fields).
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DateOfBirth" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Birth date for the profile.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DriversLicenseNumber" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Drivers License Number for the profile.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DriversLicenseState" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ State where the Drivers License was issued.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="EmailAddress" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Email address for the contact.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Employer" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The name of the profile's employer.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="FaxNumber" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Fax number for the contact.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="HomePhone" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Home phone number for the contact.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="MailingAddress" nillable="true" type="tns:MailingAddressData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Address for the contact.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Name" nillable="true" type="tns:NameData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Name of the person or business that is the contact.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Occupation" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The occupation of the profile.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SSN" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Social Security Number for the profile.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="WorkPhone" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Work phone number for the contact.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="BillingPointProfileData" nillable="true" type="tns:BillingPointProfileData" />
+      <xsd:complexType name="MailingAddressData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing a mailing address
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:AddressData">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Attn" type="xsd:boolean">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ Indicates the Street property contains the an attention value such as ATTN: John Smith.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Country" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ Optional address country.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Name" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ Name of recipient.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Street2" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ Optional additional address information, if Attn = True this is the required value for the first line of the address.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Street3" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ Optional additional address information.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="TaxLocation" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ Optional tax location
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="MailingAddressData" nillable="true" type="tns:MailingAddressData" />
+      <xsd:complexType name="AddressData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="City" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The city for delivery.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="County" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The county for delivery.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GeoCode" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The geo code for the address.  Only required for select operations.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="State" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The state for delivery.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Street" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The first address line.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ZipCode" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The zip or postal code.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AddressData" nillable="true" type="tns:AddressData" />
+      <xsd:complexType name="NameData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing a customer or company name.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="BusinessName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The business name value for the data object.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="FirstName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The first name value for the data object.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="LastName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The last name value for the data object.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="NameData" nillable="true" type="tns:NameData" />
+      <xsd:element name="AddBillingPointSubmit">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="bpData" nillable="true" type="tns:AddBillingPointData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="AddBillingPointData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing data required for adding a new billing point.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AlternateAddresses" nillable="true" type="tns:ArrayOfAlternateAddressData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Optional list of alternate addresses for the new billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="BypassExternalAddressValidation" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Determines if external address validation (if enabled) should be performed.  External address validation
+ is enabled by default.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CreditCardAccount" nillable="true" type="tns:CreditCardAccountData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The required credit card account information used for generating auto-payment records
+ when the PaymentType.CreditCard payment method is selected for the billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CreditDetails" nillable="true" type="tns:CreditAssessmentData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The required credit rating and assessment date for the new billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Deposit" nillable="true" type="tns:DepositData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The optional deposit data for the new billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DirectDebitAccount" nillable="true" type="tns:DirectDebitAccountData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The required direct debit account information used for generating auto-payment records
+ when the PaymentType.DirectDebit payment method is selected for the billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="NewBillingPoint" nillable="true" type="tns:BillingPointData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The data for the new billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ReasonCode" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Reason code for adding the new billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;Field should be set to Nothing/Null if the reason code is not required.&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="RequiredSecurityRoleID" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The optional ID for user security role required to access the billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceDate" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The date when service is activated for the Billing Point account. Once the registration is complete, this cannot be edited.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TaxExemptions" nillable="true" type="q1:ArrayOfint">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Integer IDs of applicable tax exemptions.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UserID" type="xsd:long">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The required user ID the billing point will be created under.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UserName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The required username the billing point will be created under.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AddBillingPointData" nillable="true" type="tns:AddBillingPointData" />
+      <xsd:complexType name="ArrayOfAlternateAddressData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AlternateAddressData" nillable="true" type="tns:AlternateAddressData" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfAlternateAddressData" nillable="true" type="tns:ArrayOfAlternateAddressData" />
+      <xsd:complexType name="AlternateAddressData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing an alternate address.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:MailingAddressData">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="AddressID" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ The ID of the alternate address represented. A new address should have a value of 0.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="AddressType" type="tns:AddressTypeData">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ The type of the alternate address.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="BookCount" nillable="true" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ The book count for the alternate address.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="DropLocation" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ The drop location for the alternate address.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="DropLocationCode" nillable="true" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ The drop location code for the alternate address.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="StartDate" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ The start date for the alternate address.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="StopDate" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ The stop date for the alternate address.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="AlternateAddressData" nillable="true" type="tns:AlternateAddressData" />
+      <xsd:simpleType name="AddressTypeData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Determines the alternate address type.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Copy">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ Indicates an alternate address that receives a copy(s) of a customer's invoice that is different from the billing point's profile address.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Directory">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ Indicates an alternate address to receive a directory with the specified number of directory books.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Optional">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ Indicates an alternate address that receives a copy of a customer's invoice instead of the billing point's profile address.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Primary">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ Indicates the billing point's profile address that should not be referenced when maintaining alternate addresses.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="CapitalCreditsMember" />
+          <xsd:enumeration value="CapitalCreditsGuardian" />
+          <xsd:enumeration value="CapitalCreditsExecutor" />
+          <xsd:enumeration value="CapitalCreditsMemberAddress" />
+          <xsd:enumeration value="CapitalCreditsGuardianAddress" />
+          <xsd:enumeration value="CapitalCreditsExecutorAddress" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="AddressTypeData" nillable="true" type="tns:AddressTypeData" />
+      <xsd:complexType name="CreditCardAccountData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing credit card account data.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="CardHolderName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Name of the credit cardholder exactly as it appears on the credit card
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CardTypeDescription" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The description for the credit card type.  Not required when updating payment method data.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CardTypeID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The ID for the type of credit card.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ExpirationMonth" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The two-digit month (01-12) the credit card expires.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ExpirationYear" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The four-digit year the credit card expires.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Number" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The number as it is displayed on the customer's credit card.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CreditCardAccountData" nillable="true" type="tns:CreditCardAccountData" />
+      <xsd:complexType name="CreditAssessmentData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing billing point credit rating data.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Agency" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The name of the credit bureau that the rating was obtained from.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AssessmentDate" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The date that the customer was evaluated and assign a credit rating by a credit agency or your company
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Notes" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Specific information that should be recorded that is pertinent to the assigned credit rating.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Rating" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The rating value for the Billing Point account to manually assign a rating. This value is used to identify customers who may qualify for a disconnect notice.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Score" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The value that was assigned by the credit agency, if applicable.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CreditAssessmentData" nillable="true" type="tns:CreditAssessmentData" />
+      <xsd:complexType name="DepositData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing deposit data required for a billing point or subscription.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Amount" type="xsd:float">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The deposit amount.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ChargeID" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The ID for the deposit charge.  This value should only be populated when
+ deposit charges are required or optional.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DepositDate" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The date the deposit was received from the customer.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DepositType" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The type of deposit.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Notes" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Notes about the deposit.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="RefundDate" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The date to issue deposit refunds.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="DepositData" nillable="true" type="tns:DepositData" />
+      <xsd:complexType name="DirectDebitAccountData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing direct debit account data.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AccountName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The name of the bank holding the account.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AccountNumber" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The account Number to debit the amount due from
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AccountTypeID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The ID for the type of banking account.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="PrenoteID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The ID for the selected pre-note.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="RoutingNumber" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The branch identification of the bank holding the account.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="DirectDebitAccountData" nillable="true" type="tns:DirectDebitAccountData" />
+      <xsd:complexType name="BillingPointData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing a billing point.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AccountInfo" nillable="true" type="tns:AccountInfoData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Object containing general account information (e.g. Bill Group, Agent, etc...)
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="BillingPointID" type="xsd:long">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Identifier for the BillingPoint.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CustomerID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ ID value to create a link from the current Billing Point account to a related 
+ Billing Point account to view the applicable customer information.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="EmiID" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The billing point account level value used for company specific processes, such as an outcollect call usage. 
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="InvoiceOptions" nillable="true" type="tns:InvoiceOptionsData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Data pertaining to invoice account code settings.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="InvoiceSuppression" nillable="true" type="tns:InvoiceSuppressionDataEx">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Invoice suppression settings.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="MediaType" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Identifies the storage location of call records for all of the Services assigned to the selected billing point account. CD ROM is typically indicated.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="PaymentMethod" type="tns:PaymentTypeData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The payment method for the billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ProductCategory" type="tns:ProductCategoryTypeData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The category of product for the billing point's bill group (wireline or wireless).
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Profile" nillable="true" type="tns:BillingPointProfileData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Object representing the profile information.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="BillingPointData" nillable="true" type="tns:BillingPointData" />
+      <xsd:complexType name="AccountInfoData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing account info data
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AccountTypeID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ ID representing the Account Type.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="BillGroupID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ ID representing the Bill Group.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CommissionAgent" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The agent that sold service to the billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DisconnectExempt" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Indicates whether a customer is exempt from qualifying for a disconnect notice based on their outstanding balance during the Disconnect Notices process in BkO.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DisconnectExemptStart" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The start of the effective period for the disconnect exemption.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;This is optional for a disconnect exemption.&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DisconnectExemptStop" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The end of the effective period for the disconnect exemption.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;This is optional for a disconnect exemption.&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ElectronicPaymentAvailibility" type="tns:ElectronicPaymentAvailibilityTypeData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Determines if the customer can make electronic payments.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="LateChargeExempt" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Exempts the billing point from having late charges assigned to their account.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="LateChargeExemptStart" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The start of the effective period for the late charge exemption.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;This is optional for a disconnect exemption.&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="LateChargeExemptStop" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The end of the effective period for the late charge exemption.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;This is optional for a late charge exemption.&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="PreventAutoRestore" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Indicates if the billing point or any linked services at a temp-disconnect status should be moved to an active status if the amount due that have been paid in full.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="PreventWebPortalUpdates" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Indicates if the Portal user for associated billing point has permission to make payment method changes.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AccountInfoData" nillable="true" type="tns:AccountInfoData" />
+      <xsd:simpleType name="ElectronicPaymentAvailibilityTypeData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ The types of electronic payment availability for billing points.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="AcceptAllPayments">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ No payment types are prevented.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="PreventAllPayments">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ All payment types are prevented.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="PreventCCPayments">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ Credit card payments are prevented.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="PreventDDPayments">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ Direct debit payments are prevented.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="ElectronicPaymentAvailibilityTypeData" nillable="true" type="tns:ElectronicPaymentAvailibilityTypeData" />
+      <xsd:complexType name="InvoiceOptionsData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Represents Invoice Options for a Billing Point.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AccountCodeInvoiceFormat" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Invoice format option for the billing point.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AccountCodeInvoicePrintFormat" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Invoice grouping format option.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AdditionalInvoiceCopies" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Number of additional invoice copies.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="InvoicePullCode" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Up to three digit alphanumeric value set up by the customer to define how to handle specific invoices during printing.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="InvoiceOptionsData" nillable="true" type="tns:InvoiceOptionsData" />
+      <xsd:complexType name="InvoiceSuppressionDataEx">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing data for an InvoiceSuppressionData.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="IncludeReplyEnvelope" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Flag indicating whether or not a reply envelope should be included with the customer's invoice.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SuppressInvoiceBillView" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Determines if invoices can be viewed through the CRM Invoices screen.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SuppressInvoiceBillViewReason" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The reason for selecting to suppress viewing invoices from the CRM Invoices screen.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SuppressInvoicePrintFile" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Determines if printed copies of the invoice are suppressed for customers that are using the electronic billed (E-Bill only) option.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SuppressInvoicePrintFileReason" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The reason for selecting to suppress the invoice print copy.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="InvoiceSuppressionDataEx" nillable="true" type="tns:InvoiceSuppressionDataEx" />
+      <xsd:simpleType name="PaymentTypeData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ The payment types available for the billing point.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="CashCheck">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ Cash or check payment type.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="CreditCard">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ Credit card payment type.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="DirectDebit">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ Direct debit payment type.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="CashOnly">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ Cash only payment type.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="PaymentTypeData" nillable="true" type="tns:PaymentTypeData" />
+      <xsd:simpleType name="ProductCategoryTypeData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Indicates the type of product being represented.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Wireline">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ A wireline product.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Wireless">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ A wireless product
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="ProductCategoryTypeData" nillable="true" type="tns:ProductCategoryTypeData" />
+      <xsd:element name="AddBillingPointSubmitResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="AddBillingPointSubmitResult" nillable="true" type="tns:AddBillingPointStatusData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="AddBillingPointStatusData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing the result of the BillingPointService.AddBillingPoint() method.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:OperationStatusData">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="BillingPointID" type="xsd:long">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ The ID for the new billing point that is populated if operation was successful.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="AddBillingPointStatusData" nillable="true" type="tns:AddBillingPointStatusData" />
+      <xsd:complexType name="OperationStatusData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfOperationMessageData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Array of error messages.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="StatusCode" type="tns:OperationStatusCode">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The status of the operation.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="OperationStatusData" nillable="true" type="tns:OperationStatusData" />
+      <xsd:complexType name="ArrayOfOperationMessageData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="OperationMessageData" nillable="true" type="tns:OperationMessageData" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfOperationMessageData" nillable="true" type="tns:ArrayOfOperationMessageData" />
+      <xsd:complexType name="OperationMessageData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing an error message returned from a service operation.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Code" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The error code for the error message.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Description" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The message for the error.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="IsWarning" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Determines if the message is an error or warning.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="OperationMessageData" nillable="true" type="tns:OperationMessageData" />
+      <xsd:simpleType name="OperationStatusCode">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ The status code for the operation.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Success">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ The operation was successful.
+ &lt;/summary&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="ValidationFailure">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ Validation errors occurred while processing the operation.  Validation error codes and 
+ messages will vary based on the operation being performed.
+ &lt;/summary&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="ExecutionError">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ An exception occurred while processing the operation.  Please review the operation API 
+ documentation to determine how to handle execution errors.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="OperationStatusCode" nillable="true" type="tns:OperationStatusCode" />
+      <xsd:element name="AlternateAddressChangeSubmit">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+            <xsd:element minOccurs="0" name="billingAddressDatas" nillable="true" type="tns:ArrayOfAlternateAddressChangeData" />
+            <xsd:element minOccurs="0" name="bypassExternalAddressValidation" type="xsd:boolean" />
+            <xsd:element minOccurs="0" name="userName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="userID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfAlternateAddressChangeData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AlternateAddressChangeData" nillable="true" type="tns:AlternateAddressChangeData" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfAlternateAddressChangeData" nillable="true" type="tns:ArrayOfAlternateAddressChangeData" />
+      <xsd:complexType name="AlternateAddressChangeData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing an added, removed, or updated alternate address.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Action" type="tns:DataElementAction">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The type of alternate address change.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AlternateAddress" nillable="true" type="tns:AlternateAddressData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The alternate address that was added, removed, or updated.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AlternateAddressChangeData" nillable="true" type="tns:AlternateAddressChangeData" />
+      <xsd:simpleType name="DataElementAction">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ The status of a data change.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Unknown">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ The status of the data object is unknown or unchanged.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Add">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ The data object is new.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Remove">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ The data object is to be removed.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Update">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ The data object was updated.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Save">
+            <xsd:annotation>
+              <xsd:documentation>	&lt;summary&gt;
+ The data object is new or updated, application decides action
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="DataElementAction" nillable="true" type="tns:DataElementAction" />
+      <xsd:element name="AlternateAddressChangeSubmitResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="AlternateAddressChangeSubmitResult" nillable="true" type="tns:OperationStatusData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AccountInfoChangeSubmit">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+            <xsd:element minOccurs="0" name="accountInfoData" nillable="true" type="tns:AccountInfoData" />
+            <xsd:element minOccurs="0" name="userName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="userID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AccountInfoChangeSubmitResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="AccountInfoChangeSubmitResult" nillable="true" type="tns:OperationStatusData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteBillingPoint">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+            <xsd:element minOccurs="0" name="bypassValidation" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteBillingPointResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="DeleteBillingPointResult" nillable="true" type="tns:OperationStatusData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteCustomer">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="customerID" type="xsd:long" />
+            <xsd:element minOccurs="0" name="bypassValidation" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteCustomerResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="DeleteCustomerResult" nillable="true" type="tns:OperationStatusData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAccountInfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAccountInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetAccountInfoResult" nillable="true" type="tns:AccountInfoData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAddBillingPointReasonCodes">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAddBillingPointReasonCodesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAddBillingPointReasonCodesResult" nillable="true" type="q2:ArrayOfKeyValueOfintstring" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableAccountTypes">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableAccountTypesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAvailableAccountTypesResult" nillable="true" type="q3:ArrayOfKeyValueOfintstring" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableAgents">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="userID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableAgentsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetAvailableAgentsResult" nillable="true" type="tns:ArrayOfAgentData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfAgentData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AgentData" nillable="true" type="tns:AgentData" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfAgentData" nillable="true" type="tns:ArrayOfAgentData" />
+      <xsd:complexType name="AgentData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing an agent.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AgentID" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The unique ID for the agent.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Description" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The description for the agent.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AgentData" nillable="true" type="tns:AgentData" />
+      <xsd:element name="GetAvailableBillGroups">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="userID" type="xsd:int" />
+            <xsd:element minOccurs="0" name="accountTypeID" type="xsd:int" />
+            <xsd:element minOccurs="0" name="address" nillable="true" type="tns:AddressData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableBillGroupsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetAvailableBillGroupsResult" nillable="true" type="tns:ArrayOfBillGroupData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfBillGroupData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BillGroupData" nillable="true" type="tns:BillGroupData" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfBillGroupData" nillable="true" type="tns:ArrayOfBillGroupData" />
+      <xsd:complexType name="BillGroupData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing the billing group data.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="BillGroupID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Identifier for the billing group.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CycleID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ ID for the associated billing cycle.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Name" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Description for the billing group.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ProductCategory" type="tns:ProductCategoryTypeData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The category of product for the bill group (wireline or wireless).
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="BillGroupData" nillable="true" type="tns:BillGroupData" />
+      <xsd:element name="GetAvailableMarkets">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+            <xsd:element minOccurs="0" name="userID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableMarketsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAvailableMarketsResult" nillable="true" type="q4:ArrayOfKeyValueOfintstring" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableMediaTypes">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableMediaTypesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAvailableMediaTypesResult" nillable="true" type="q5:ArrayOfKeyValueOfintstring" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableSecurityRoles">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="userID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableSecurityRolesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAvailableSecurityRolesResult" nillable="true" type="q6:ArrayOfKeyValueOfintstring" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableStates">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableStatesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAvailableStatesResult" nillable="true" type="q7:ArrayOfstring" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBillingPointAddress">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBillingPointAddressResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetBillingPointAddressResult" nillable="true" type="tns:MailingAddressData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBillingPointAlternateAddress">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBillingPointAlternateAddressResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetBillingPointAlternateAddressResult" nillable="true" type="tns:ArrayOfAlternateAddressData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBillingPointIDsForCustomer">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="customerID" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBillingPointIDsForCustomerResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetBillingPointIDsForCustomerResult" nillable="true" type="q8:ArrayOflong" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBillViewSuppressionReasons">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBillViewSuppressionReasonsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetBillViewSuppressionReasonsResult" nillable="true" type="q9:ArrayOfKeyValueOfintstring" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerAgent">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCustomerAgentResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetCustomerAgentResult" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetDropBoxLocations">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetDropBoxLocationsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetDropBoxLocationsResult" nillable="true" type="q10:ArrayOfKeyValueOfintstring" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPrintFileSuppressionReasons">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPrintFileSuppressionReasonsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetPrintFileSuppressionReasonsResult" nillable="true" type="q11:ArrayOfKeyValueOfintstring" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetSubscribedDataFeeds">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetSubscribedDataFeedsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetSubscribedDataFeedsResult" nillable="true" type="tns:ArrayOfSubscribedDataFeedData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfSubscribedDataFeedData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="SubscribedDataFeedData" nillable="true" type="tns:SubscribedDataFeedData" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfSubscribedDataFeedData" nillable="true" type="tns:ArrayOfSubscribedDataFeedData" />
+      <xsd:complexType name="SubscribedDataFeedData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Represents as subscribed data feed.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Address" nillable="true" type="tns:MailingAddressData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Physical Address associated with data feed.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="BillPointID" type="xsd:long">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Primary Key of BillingPoint
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ContactDetailID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Primary Key of Contact Details
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CustomerAddressID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Primary Key of Customer Address 
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DeliveryMethodID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Represents the type of data feed delivery method.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="EmailAddress" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Represents data feed email address.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="FeedTypeID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Represents the type of data feed.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="From" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Start date of data feed subscription.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="FtpHost" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Represents data feed FTP host.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="FtpPassword" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Represents data feed FTP user's password.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="FtpPort" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Represents data feed FTP port.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="FtpRemotePath" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Represents data feed FTP remote directory.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="FtpUser" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Represents data feed FTP username.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Through" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ End date of data feed subscription.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="SubscribedDataFeedData" nillable="true" type="tns:SubscribedDataFeedData" />
+      <xsd:element name="GetTaxExemptions">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTaxExemptionsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetTaxExemptionsResult" nillable="true" type="tns:ArrayOfTaxExemptionData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfTaxExemptionData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="TaxExemptionData" nillable="true" type="tns:TaxExemptionData" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfTaxExemptionData" nillable="true" type="tns:ArrayOfTaxExemptionData" />
+      <xsd:complexType name="TaxExemptionData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing a tax exception record.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Code" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The tax authorization code.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Description" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The description for the tax exemption.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The unique ID for the tax exemption record.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="TaxExemptionData" nillable="true" type="tns:TaxExemptionData" />
+      <xsd:element name="IsBillingPointAccessAllowed">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+            <xsd:element minOccurs="0" name="userID" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="IsBillingPointAccessAllowedResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="IsBillingPointAccessAllowedResult" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ProfileChangeSubmit">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="profileChangeData" nillable="true" type="tns:ProfileChangeData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ProfileChangeData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing profile address change data
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="BillingPointID" type="xsd:long">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The profile's billing point ID.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="BypassExternalAddressValidation" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Determines if the submit should ignore Melissa Data validation.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Profile" nillable="true" type="tns:BillingPointProfileData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The profile data to be submitted.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UpdateCustomerAddress" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Update the customer address with the billing point address
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UserID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The ID of the user to submit the changes.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UserName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The username of the user to submit the changes.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ProfileChangeData" nillable="true" type="tns:ProfileChangeData" />
+      <xsd:element name="ProfileChangeSubmitResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="ProfileChangeSubmitResult" nillable="true" type="tns:OperationStatusData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SubscribedDataFeedChangeSubmit">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="dataFeedChanges" nillable="true" type="tns:ArrayOfSubscribedDataFeedChangeData" />
+            <xsd:element minOccurs="0" name="username" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfSubscribedDataFeedChangeData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="SubscribedDataFeedChangeData" nillable="true" type="tns:SubscribedDataFeedChangeData" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfSubscribedDataFeedChangeData" nillable="true" type="tns:ArrayOfSubscribedDataFeedChangeData" />
+      <xsd:complexType name="SubscribedDataFeedChangeData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Represents a Subscribed Data Feed change.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Action" type="tns:DataElementAction">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Action to take with associated Subscribed Data Feed data.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SubscribedDataFeed" nillable="true" type="tns:SubscribedDataFeedData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Subscribed Data Feed data to modify.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="SubscribedDataFeedChangeData" nillable="true" type="tns:SubscribedDataFeedChangeData" />
+      <xsd:element name="SubscribedDataFeedChangeSubmitResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="SubscribedDataFeedChangeSubmitResult" nillable="true" type="tns:OperationStatusData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="TaxExemptionChangeSubmit">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="billingPointID" type="xsd:long" />
+            <xsd:element minOccurs="0" name="exemptionChangeData" nillable="true" type="tns:ArrayOfTaxExemptionChangeData" />
+            <xsd:element minOccurs="0" name="userName" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfTaxExemptionChangeData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="TaxExemptionChangeData" nillable="true" type="tns:TaxExemptionChangeData" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfTaxExemptionChangeData" nillable="true" type="tns:ArrayOfTaxExemptionChangeData" />
+      <xsd:complexType name="TaxExemptionChangeData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Represents action to take with tax exemption data.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Action" type="tns:DataElementAction">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ The action to take with included Tax Exemption Data.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="TaxExemption" nillable="true" type="tns:TaxExemptionData">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>	&lt;summary&gt;
+ Tax exemption data to change.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="TaxExemptionChangeData" nillable="true" type="tns:TaxExemptionChangeData" />
+      <xsd:element name="TaxExemptionChangeSubmitResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="TaxExemptionChangeSubmitResult" nillable="true" type="tns:OperationStatusData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ValidateMailingAddress">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="mailingAddress" nillable="true" type="tns:MailingAddressData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ValidateMailingAddressResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="ValidateMailingAddressResult" nillable="true" type="tns:ValidateMailingAddressStatusData" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ValidateMailingAddressStatusData">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Object representing the result of validating a mailing address.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:OperationStatusData">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="CorrectedAddress" nillable="true" type="tns:MailingAddressData">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ The corrected or suggested address values determined by the external address validation provider that is only 
+ populated if the MatchedAddress, CorrectedAddress, or MatchedAddressWithChanges ValidationStatusCode is returned.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="ValidationStatusCode" type="tns:AddressValidationStatusCode">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>	&lt;summary&gt;
+ Code representing the address validation status.
+ &lt;/summary&gt;
+	&lt;value&gt;&lt;/value&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ValidateMailingAddressStatusData" nillable="true" type="tns:ValidateMailingAddressStatusData" />
+      <xsd:simpleType name="AddressValidationStatusCode">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>	&lt;summary&gt;
+ Indicates the status of an address validation.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="ValidationFailure">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">-1</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ An error occurred while validating the address.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="MatchedAddress">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ The address was matched.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="CorrectedAddress">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ The address was matched but there were corrections that requires no user confirmation.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="MatchedAddressWithChanges">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ The address was matched but there were corrections that require user confirmation.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="InvalidAddress">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ An address match could not be found.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="MultipleAddressMatches">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ More than one address match was found.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="NotPerformed">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+              </xsd:appinfo>
+              <xsd:documentation>	&lt;summary&gt;
+ Address validation was not performed due to system configuration.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="AddressValidationStatusCode" nillable="true" type="tns:AddressValidationStatusCode" />
+    </xsd:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xsd:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+      <xsd:complexType name="ArrayOfint">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="int" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfint" nillable="true" type="tns:ArrayOfint" />
+      <xsd:complexType name="ArrayOfKeyValueOfintstring">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfintstring">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="Key" type="xsd:int" />
+                <xsd:element name="Value" nillable="true" type="xsd:string" />
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfKeyValueOfintstring" nillable="true" type="tns:ArrayOfKeyValueOfintstring" />
+      <xsd:complexType name="ArrayOfstring">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+      <xsd:complexType name="ArrayOflong">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="long" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOflong" nillable="true" type="tns:ArrayOflong" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IBillingPointService_GetBillingPointProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingPointProfile" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetBillingPointProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingPointProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_AddBillingPointSubmit_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddBillingPointSubmit" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_AddBillingPointSubmit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddBillingPointSubmitResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_AlternateAddressChangeSubmit_InputMessage">
+    <wsdl:part name="parameters" element="tns:AlternateAddressChangeSubmit" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_AlternateAddressChangeSubmit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AlternateAddressChangeSubmitResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_AccountInfoChangeSubmit_InputMessage">
+    <wsdl:part name="parameters" element="tns:AccountInfoChangeSubmit" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_AccountInfoChangeSubmit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AccountInfoChangeSubmitResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_DeleteBillingPoint_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteBillingPoint" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_DeleteBillingPoint_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteBillingPointResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_DeleteCustomer_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCustomer" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_DeleteCustomer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAccountInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountInfo" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAccountInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAddBillingPointReasonCodes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAddBillingPointReasonCodes" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAddBillingPointReasonCodes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAddBillingPointReasonCodesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableAccountTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableAccountTypes" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableAccountTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableAccountTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableAgents_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableAgents" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableAgents_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableAgentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableBillGroups_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableBillGroups" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableBillGroups_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableBillGroupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableMarkets_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableMarkets" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableMarkets_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableMarketsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableMediaTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableMediaTypes" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableMediaTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableMediaTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableSecurityRoles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableSecurityRoles" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableSecurityRoles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableSecurityRolesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableStates_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableStates" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetAvailableStates_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableStatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetBillingPointAddress_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingPointAddress" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetBillingPointAddress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingPointAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetBillingPointAlternateAddress_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingPointAlternateAddress" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetBillingPointAlternateAddress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingPointAlternateAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetBillingPointIDsForCustomer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingPointIDsForCustomer" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetBillingPointIDsForCustomer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingPointIDsForCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetBillViewSuppressionReasons_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillViewSuppressionReasons" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetBillViewSuppressionReasons_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillViewSuppressionReasonsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetCustomerAgent_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCustomerAgent" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetCustomerAgent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCustomerAgentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetDropBoxLocations_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDropBoxLocations" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetDropBoxLocations_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDropBoxLocationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetPrintFileSuppressionReasons_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPrintFileSuppressionReasons" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetPrintFileSuppressionReasons_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPrintFileSuppressionReasonsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetSubscribedDataFeeds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubscribedDataFeeds" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetSubscribedDataFeeds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubscribedDataFeedsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetTaxExemptions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTaxExemptions" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_GetTaxExemptions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTaxExemptionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_IsBillingPointAccessAllowed_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsBillingPointAccessAllowed" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_IsBillingPointAccessAllowed_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsBillingPointAccessAllowedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_ProfileChangeSubmit_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProfileChangeSubmit" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_ProfileChangeSubmit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProfileChangeSubmitResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_SubscribedDataFeedChangeSubmit_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribedDataFeedChangeSubmit" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_SubscribedDataFeedChangeSubmit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribedDataFeedChangeSubmitResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_TaxExemptionChangeSubmit_InputMessage">
+    <wsdl:part name="parameters" element="tns:TaxExemptionChangeSubmit" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_TaxExemptionChangeSubmit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TaxExemptionChangeSubmitResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_ValidateMailingAddress_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateMailingAddress" />
+  </wsdl:message>
+  <wsdl:message name="IBillingPointService_ValidateMailingAddress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateMailingAddressResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IBillingPointService">
+    <wsdl:documentation>	&lt;summary&gt;
+ Process billing point data requests.
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+    <wsdl:operation name="GetBillingPointProfile">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieve the billing point profile information for the given billing point id.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point for the profile you wish to retrieve&lt;/param&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointServiceRest/GetBillingPointProfile" message="tns:IBillingPointService_GetBillingPointProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointServiceRest/GetBillingPointProfileResponse" message="tns:IBillingPointService_GetBillingPointProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBillingPointSubmit">
+      <wsdl:documentation>	&lt;summary&gt;
+ Add a new billing point including profile, account, credit detail, alternate address, deposit, payment details, and tax exemption data.
+ &lt;example&gt;&lt;code&gt;
+
+Dim userID As Integer = 4352
+
+Using bpClient = ClientBuilder.BuildClient(Of BillingPointClient)()
+
+    ' get the list of available states
+    Dim states As List(Of String) = bpClient.GetAvailableStates()
+
+    ' build the add billing point object
+    Dim addBPData As New AddBillingPointData
+
+    ' set the profile for the new billing point
+    With addBPData.NewBillingPoint.Profile
+        ' business and/or first/last name is required
+        .Name.BusinessName = ""
+        .Name.FirstName = "Test"
+        .Name.LastName = "Customer"
+        ' mailing address is required
+        .MailingAddress.Attn = False
+        .MailingAddress.Street = "123 Test Street" ' required
+        .MailingAddress.Street2 = "" ' street2 is required if Attn = True
+        .MailingAddress.Street3 = "" ' optional
+        .MailingAddress.City = "Mankato" ' required
+        .MailingAddress.State = states(0) ' required, must be a value from the available states
+        .MailingAddress.ZipCode = "35345" ' required
+        .MailingAddress.County = ""
+        .MailingAddress.Country = ""
+        ' remaining optional profile data
+        .HomePhone = "9896789999"
+        .WorkPhone = "9897432345"
+        .FaxNumber = "9897763456"
+        .EmailAddress = "test@test.com"
+        .DriversLicenseNumber = "DL4352354234"
+        .DriversLicenseState = states(0) ' must be a value from the available states
+        .Employer = "Test Company"
+        .Occupation = "Tech Services"
+        .SSN = "999999999"
+        .DateOfBirth = Nothing
+        .AuthorizedPassword = "my password"
+        .AuthorizedPasswordHint = "your password"
+        .AdditionalUser = ""
+        .AdditionalUserPassword = ""
+        .AdditionalUserPasswordHint = ""
+    End With
+
+    ' determines if external address validation should be bypassed, False by default
+    addBPData.BypassExternalAddressValidation = False
+
+    ' optionally set the customer ID, set to zero if an existing customer ID is not known
+    addBPData.NewBillingPoint.CustomerID = 0
+
+    ' set the date when the billing point is active
+    addBPData.ServiceDate = Date.Today
+
+    ' set the add billing point reason code from the list of available options if required
+    Dim reasonCodes As Dictionary(Of Integer, String) = bpClient.GetAddBillingPointReasonCodes()
+    addBPData.ReasonCode = reasonCodes.First.Key
+
+    ' optionally set the security role required to access the new billing point
+    Dim securityRoles As Dictionary(Of Integer, String) = bpClient.GetAvailableSecurityRoles(userID)
+    addBPData.RequiredSecurityRoleID = securityRoles.First.Key
+
+    ' optionally set the media type for the new billing point
+    Dim mediaTypes As Dictionary(Of Integer, String) = bpClient.GetAvailableMediaTypes()
+    addBPData.NewBillingPoint.MediaType = mediaTypes.First.Key
+
+    ' set other exemption, auto-restore, and address data
+    With addBPData.NewBillingPoint
+        .EmiID = "EMITST" ' optional
+        .Profile.MailingAddress.GeoCode = "TestGeo" ' optional
+    End With
+
+    'Set Account Invoice Options
+    With addBPData.NewBillingPoint.InvoiceOptions
+        .AccountCodeInvoiceFormat = 1 ' optional
+        .AccountCodeInvoicePrintFormat = "TST" ' optional
+        .InvoicePullCode = "TST"
+        .AdditionalInvoiceCopies = 1 ' optional
+    End With
+
+    'Add Billing point account info data
+    ' get the available bill groups based on account and address data and set the new billing point's
+    ' bill groups to the value in the list
+    Dim billGroups As List(Of BillGroupData) = bpClient.GetAvailableBillGroups(userID,
+                                                                               addBPData.NewBillingPoint.AccountInfo.AccountTypeID,
+                                                                               DirectCast(addBPData.NewBillingPoint.Profile.MailingAddress, AddressData))
+
+    Dim defaultBillGroup As BillGroupData = billGroups(0)
+    addBPData.NewBillingPoint.AccountInfo.BillGroupID = defaultBillGroup.BillGroupID
+
+    ' optionally set the agent for the new billing point
+    Dim agents As List(Of AgentData) = bpClient.GetAvailableAgents(userID)
+    addBPData.NewBillingPoint.AccountInfo.CommissionAgent = agents(0).AgentID
+
+    addBPData.NewBillingPoint.AccountInfo.LateChargeExempt = False
+    addBPData.NewBillingPoint.AccountInfo.DisconnectExempt = False
+    addBPData.NewBillingPoint.AccountInfo.PreventAutoRestore = False
+    addBPData.NewBillingPoint.AccountInfo.ElectronicPaymentAvailibility = ElectronicPaymentAvailibilityTypeData.AcceptAllPayments ' optional
+
+    ' get the available account types and set the new billing point's account type to the first value
+    Dim accountTypes As Dictionary(Of Integer, String) = bpClient.GetAvailableAccountTypes()
+    addBPData.NewBillingPoint.AccountInfo.AccountTypeID = accountTypes.First.Key
+
+    ' get the available tax exemptions
+    Dim exemptions As Dictionary(Of Integer, String) = Nothing
+    Using ctrlDataClient = ClientBuilder.BuildClient(Of ControlDataClient)()
+        exemptions = ctrlDataClient.GetAvailableTaxExemptions()
+    End Using
+
+    ' add optional tax exemptions
+    addBPData.TaxExemptions.Add(exemptions.First.Key)
+    addBPData.TaxExemptions.Add(exemptions.Last.Key)
+
+    ' get invoice suppression reasons
+    Dim suppressBillViewReasons As Dictionary(Of Integer, String) = bpClient.GetBillViewSuppressionReasons()
+    Dim suppressPrintFileReasons As Dictionary(Of Integer, String) = bpClient.GetPrintFileSuppressionReasons()
+
+    ' set optional invoice suppression
+    With addBPData.NewBillingPoint.InvoiceSuppression
+        .SuppressInvoiceBillView = True
+        .SuppressInvoiceBillViewReason = suppressBillViewReasons.First.Key ' required if SuppressInvoiceBillView = True
+        .SuppressInvoicePrintFile = True
+        .SuppressInvoicePrintFileReason = suppressPrintFileReasons.First.Key ' required if SuppressInvoicePrintFile = True
+    End With
+
+    ' get credit rating, credit card type, direct debit account types, direct debit prenote types, and deposit data
+    Dim ratings As List(Of String) = Nothing
+    Dim creditCardTypes As List(Of CreditCardTypeData) = Nothing
+    Dim directDebitAccountTypes As Dictionary(Of Integer, String) = Nothing
+    Dim directDebitPrenoteTypes As Dictionary(Of Integer, String) = Nothing
+    Dim depositSettings As DepositSettingsData = Nothing
+    Dim depositTypes As Dictionary(Of Integer, String) = Nothing
+    Dim depositCharges As Dictionary(Of Integer, String) = Nothing
+    Using pmtClient = ClientBuilder.BuildClient(Of PaymentClient)()
+        ' the available credit ratings need to be fetched based on the billing point's address and other data
+        ratings = pmtClient.GetAvailableCreditRatings(addBPData.NewBillingPoint.AccountInfo.AccountTypeID,
+                                                      DirectCast(addBPData.NewBillingPoint.Profile.MailingAddress, AddressData),
+                                                      addBPData.NewBillingPoint.AccountInfo.BillGroupID,
+                                                      defaultBillGroup.ProductCategory)
+        ' get payment method data
+        creditCardTypes = pmtClient.GetCreditCardTypes()
+        directDebitAccountTypes = pmtClient.GetDirectDebitAccountTypes()
+        directDebitPrenoteTypes = pmtClient.GetDirectDebitPrenoteTypes()
+        ' get deposit settings and data
+        depositSettings = pmtClient.GetDepositSettings()
+        depositTypes = pmtClient.GetDepositTypes()
+        depositCharges = pmtClient.GetAvailableDepositCharges(addBPData.NewBillingPoint.AccountInfo.AccountTypeID,
+                                                              DirectCast(addBPData.NewBillingPoint.Profile.MailingAddress, AddressData),
+                                                              addBPData.NewBillingPoint.AccountInfo.BillGroupID,
+                                                              defaultBillGroup.ProductCategory)
+
+    End Using
+
+    ' set payment method
+    addBPData.NewBillingPoint.PaymentMethod = PaymentTypeData.CashCheck
+
+    ' add credit card data if the credit card payment method is selected
+    If (addBPData.NewBillingPoint.PaymentMethod = PaymentTypeData.CreditCard) Then
+        addBPData.CreditCardAccount = New CreditCardAccountData()
+        ' all data is required
+        With addBPData.CreditCardAccount
+            .CardHolderName = "Test Customer"
+            .CardTypeID = creditCardTypes(0).CreditCardID ' must be a value from the available card types
+            .Number = "12234234124123" ' length is determined by the selected card type
+            .ExpirationMonth = "05" ' month 01-12
+            .ExpirationYear = "2016" ' four-digit year
+        End With
+    ElseIf (addBPData.NewBillingPoint.PaymentMethod = PaymentTypeData.DirectDebit) Then
+        ' add direct debit data if the direct debit payment method is selected
+        addBPData.DirectDebitAccount = New DirectDebitAccountData()
+        With addBPData.DirectDebitAccount
+            .AccountName = "My bank account" ' optional
+            .AccountNumber = "2452345234" ' required
+            .AccountTypeID = directDebitAccountTypes.First.Key ' required, must be a value from the available direct debit types
+            .PrenoteID = directDebitPrenoteTypes.First.Key ' required, must be a value from the available prenote types
+            .RoutingNumber = "333444555" ' required
+        End With
+    End If
+
+    ' set the required credit details data
+    With addBPData.CreditDetails
+        .Agency = "ABCAgency" ' optional
+        .AssessmentDate = Date.Today ' required
+        .Notes = "This agency is very accurate" 'optional
+        .Rating = ratings(0) ' required
+        .Score = "2423" 'optional
+    End With
+
+    ' add optional deposit data
+    addBPData.Deposit = New DepositData()
+    With addBPData.Deposit
+        .Amount = 45 ' required dollar amount that is greater than zero
+        .DepositDate = Date.Today ' required
+        .DepositType = depositTypes.First.Key ' required
+        .Notes = "This is the initial deposit" ' optional
+        ' if deposit charge selection is allowed
+        If (depositSettings.BillingChargeAvailibilityType &amp;lt;&amp;gt; DepositBillChargeAvailibilityTypeData.NotAvailable) Then
+            ' default the charge to the first available deposit charge
+            .ChargeID = depositCharges.First.Key
+            ' if there is a default deposit type if a charge is selected
+            If (depositSettings.BillingChargeDepositTypeID.HasValue()) Then
+                .DepositType = depositSettings.BillingChargeDepositTypeID.Value
+            End If
+        End If
+        ' optionally set the refund date if enabled
+        If (depositSettings.IsScheduledRefundDateEnabled) Then
+            .RefundDate = Date.Today.AddDays(30) ' optional
+        End If
+    End With
+
+    ' submit the add billing point request
+    Dim addBPStatus As AddBillingPointStatusData = bpClient.AddBillingPointSubmit(addBPData)
+    Dim newBillingPointID As Long = 0
+    Dim errorMessages As New List(Of String)
+
+    ' if the billing point was successfully created get the new billing point ID
+    If (addBPStatus.StatusCode = OperationStatusCode.Success) Then
+        newBillingPointID = addBPStatus.BillingPointID
+    End If
+
+    ' collect error or warning messages
+    addBPStatus.Messages.ToList().ForEach(Sub(x) errorMessages.Add(x.Description))
+
+End Using
+
+&lt;/code&gt;&lt;/example&gt;&lt;/summary&gt;
+	&lt;param name="bpData"&gt;Contains all data required to create the new billing point.&lt;/param&gt;
+	&lt;returns&gt;An object indicating if the billing point was successfully created, validation errors were detected, or 
+ an exception occurred while processing the request.  If successful the BillingPointID property will be populated 
+ with the new unique ID.&lt;/returns&gt;
+	&lt;remarks&gt;The property bpData.NewBillingPoint.Profile.MailingAddress.TaxLocation is ignored and not saved by this method.  The correct
+ tax location ID, if any, will be looked up and saved automatically as part of the submit process.  Note that some numeric value must
+ still be provided for this property, as it is non-nullable; omitting the element entirely from the SOAP XML contents is also an option.&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/AddBillingPointSubmit" message="tns:IBillingPointService_AddBillingPointSubmit_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/AddBillingPointSubmitResponse" message="tns:IBillingPointService_AddBillingPointSubmit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AlternateAddressChangeSubmit">
+      <wsdl:documentation>	&lt;summary&gt;
+ Save a list of alternate billing point addresses for a billing point.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point used to save the alternate addresses&lt;/param&gt;
+	&lt;param name="billingAddressDatas"&gt;A list of addresses to save for the billing point&lt;/param&gt;
+	&lt;param name="bypassExternalAddressValidation"&gt;Dictates if the address should be validated by Melissa Data&lt;/param&gt;
+	&lt;param name="userName"&gt;The user name of the user submitting the request&lt;/param&gt;
+	&lt;param name="userID"&gt;The user ID of the user submitting the request&lt;/param&gt;
+	&lt;returns&gt;An object containing the success or failure of the operation along with any error or warning messages.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/AlternateAddressChangeSubmit" message="tns:IBillingPointService_AlternateAddressChangeSubmit_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/AlternateAddressChangeSubmitResponse" message="tns:IBillingPointService_AlternateAddressChangeSubmit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AccountInfoChangeSubmit">
+      <wsdl:documentation>	&lt;summary&gt;
+ Update existing billing point account info data.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point to update account data.&lt;/param&gt;
+	&lt;param name="accountInfoData"&gt;Represents account info data.&lt;/param&gt;
+	&lt;param name="userName"&gt;Username of request originator.&lt;/param&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/AccountInfoChangeSubmit" message="tns:IBillingPointService_AccountInfoChangeSubmit_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/AccountInfoChangeSubmitResponse" message="tns:IBillingPointService_AccountInfoChangeSubmit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBillingPoint">
+      <wsdl:documentation>	&lt;summary&gt;
+ Delete a billing point by ID.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The ID for the billing point to delete.&lt;/param&gt;
+	&lt;param name="bypassValidation"&gt;Indicates if validation should be performed prior to deleting the billing point.&lt;/param&gt;
+	&lt;returns&gt;An object containing the success or failure of the operation along with any error or warning messages.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/DeleteBillingPoint" message="tns:IBillingPointService_DeleteBillingPoint_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/DeleteBillingPointResponse" message="tns:IBillingPointService_DeleteBillingPoint_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCustomer">
+      <wsdl:documentation>	&lt;summary&gt;
+ Delete a customer by ID.
+ &lt;/summary&gt;
+	&lt;param name="customerID"&gt;The ID for the customer to delete.&lt;/param&gt;
+	&lt;param name="bypassValidation"&gt;Indicates if validation should be performed prior to deleting the customer.&lt;/param&gt;
+	&lt;returns&gt;An object containing the success or failure of the operation along with any error or warning messages.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/DeleteCustomer" message="tns:IBillingPointService_DeleteCustomer_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/DeleteCustomerResponse" message="tns:IBillingPointService_DeleteCustomer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountInfo">
+      <wsdl:documentation>	&lt;summary&gt;
+ Gets the account info for a given billing point.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;ID of billing point.&lt;/param&gt;
+	&lt;returns&gt;Populated AccountInfoData object.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAccountInfo" message="tns:IBillingPointService_GetAccountInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAccountInfoResponse" message="tns:IBillingPointService_GetAccountInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAddBillingPointReasonCodes">
+      <wsdl:documentation>	&lt;summary&gt;
+ Gets all reasons for adding a bill point.
+ &lt;/summary&gt;
+	&lt;returns&gt;A list of reason IDs and descriptions.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAddBillingPointReasonCodes" message="tns:IBillingPointService_GetAddBillingPointReasonCodes_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAddBillingPointReasonCodesResponse" message="tns:IBillingPointService_GetAddBillingPointReasonCodes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableAccountTypes">
+      <wsdl:documentation>	&lt;summary&gt;
+ Gets all available account types.
+ &lt;/summary&gt;
+	&lt;returns&gt;A list of Account Type Data.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableAccountTypes" message="tns:IBillingPointService_GetAvailableAccountTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableAccountTypesResponse" message="tns:IBillingPointService_GetAvailableAccountTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableAgents">
+      <wsdl:documentation>	&lt;summary&gt;
+ Gets all available agents.
+ &lt;/summary&gt;
+	&lt;param name="userID"&gt;The ID for the user doing the lookup.&lt;/param&gt;
+	&lt;returns&gt;A list of agent IDs and descriptions.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableAgents" message="tns:IBillingPointService_GetAvailableAgents_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableAgentsResponse" message="tns:IBillingPointService_GetAvailableAgents_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableBillGroups">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieves a list of compatible bill groups.
+ &lt;/summary&gt;
+	&lt;param name="userID"&gt;ID for the user.&lt;/param&gt;
+	&lt;param name="accountTypeID"&gt;ID for the billing point's account type.&lt;/param&gt;
+	&lt;param name="address"&gt;City, State and Zip are used to find compatible Bill Groups.&lt;/param&gt;
+	&lt;returns&gt;A list of BillGroupData objects.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableBillGroups" message="tns:IBillingPointService_GetAvailableBillGroups_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableBillGroupsResponse" message="tns:IBillingPointService_GetAvailableBillGroups_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableMarkets">
+      <wsdl:documentation>	&lt;summary&gt;
+ Returns the markets that are available for a given billing point ID and user ID.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point ID to search for markets.&lt;/param&gt;
+	&lt;param name="userID"&gt;The user ID to search for markets.&lt;/param&gt;
+	&lt;returns&gt;A dictionary of available markets.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableMarkets" message="tns:IBillingPointService_GetAvailableMarkets_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableMarketsResponse" message="tns:IBillingPointService_GetAvailableMarkets_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableMediaTypes">
+      <wsdl:documentation>	&lt;summary&gt;
+ Gets all available media types.
+ &lt;/summary&gt;
+	&lt;returns&gt;A list of media IDs and descriptions.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableMediaTypes" message="tns:IBillingPointService_GetAvailableMediaTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableMediaTypesResponse" message="tns:IBillingPointService_GetAvailableMediaTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSecurityRoles">
+      <wsdl:documentation>	&lt;summary&gt;
+ Gets all available security roles that are required for a user to access the billing point.
+ &lt;/summary&gt;
+	&lt;param name="userID"&gt;The ID for the user doing the lookup.&lt;/param&gt;
+	&lt;returns&gt;A list of security role IDs and descriptions.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableSecurityRoles" message="tns:IBillingPointService_GetAvailableSecurityRoles_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableSecurityRolesResponse" message="tns:IBillingPointService_GetAvailableSecurityRoles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableStates">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieves a list of valid States and Provinces.
+ &lt;/summary&gt;
+	&lt;returns&gt;A list of States and Provinces.&lt;/returns&gt;
+	&lt;remarks&gt;States and Provinces are returned as 2 character abbreviations i.e. "MN" for ""Minnesota"", "ON" for "Ontario".&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableStates" message="tns:IBillingPointService_GetAvailableStates_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableStatesResponse" message="tns:IBillingPointService_GetAvailableStates_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBillingPointAddress">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieve all components of the billing address for the given billing point ID.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point ID to find the billing address information.&lt;/param&gt;
+	&lt;returns&gt;Address information for the billing point.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillingPointAddress" message="tns:IBillingPointService_GetBillingPointAddress_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillingPointAddressResponse" message="tns:IBillingPointService_GetBillingPointAddress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBillingPointAlternateAddress">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieve all components of the billing address for the given billing point ID.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point ID to find the billing address information.&lt;/param&gt;
+	&lt;returns&gt;Address information for the billing point.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillingPointAlternateAddress" message="tns:IBillingPointService_GetBillingPointAlternateAddress_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillingPointAlternateAddressResponse" message="tns:IBillingPointService_GetBillingPointAlternateAddress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBillingPointIDsForCustomer">
+      <wsdl:documentation>	&lt;summary&gt;
+ Get a list of billing point IDs for a customer.
+ &lt;/summary&gt;
+	&lt;param name="customerID"&gt;The ID for the customer to get billing points.&lt;/param&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;List of billing points.&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillingPointIDsForCustomer" message="tns:IBillingPointService_GetBillingPointIDsForCustomer_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillingPointIDsForCustomerResponse" message="tns:IBillingPointService_GetBillingPointIDsForCustomer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBillViewSuppressionReasons">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieves all reasons for suppressing an invoice image.
+ &lt;/summary&gt;
+	&lt;returns&gt;A list of reason IDs and descriptions.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillViewSuppressionReasons" message="tns:IBillingPointService_GetBillViewSuppressionReasons_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillViewSuppressionReasonsResponse" message="tns:IBillingPointService_GetBillViewSuppressionReasons_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerAgent">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieves the customer agent ID for the given billing point ID.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point ID to find the customer agent ID.&lt;/param&gt;
+	&lt;returns&gt;The billing point's customer agent ID.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetCustomerAgent" message="tns:IBillingPointService_GetCustomerAgent_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetCustomerAgentResponse" message="tns:IBillingPointService_GetCustomerAgent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDropBoxLocations">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieves all the Drop Box Locations
+ &lt;/summary&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetDropBoxLocations" message="tns:IBillingPointService_GetDropBoxLocations_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetDropBoxLocationsResponse" message="tns:IBillingPointService_GetDropBoxLocations_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrintFileSuppressionReasons">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieves all reasons for suppressing a hard copy invoice.
+ &lt;/summary&gt;
+	&lt;returns&gt;A list of reason IDs and descriptions.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetPrintFileSuppressionReasons" message="tns:IBillingPointService_GetPrintFileSuppressionReasons_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetPrintFileSuppressionReasonsResponse" message="tns:IBillingPointService_GetPrintFileSuppressionReasons_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSubscribedDataFeeds">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieves all subscribed data feeds for a billing point.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;&lt;/param&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetSubscribedDataFeeds" message="tns:IBillingPointService_GetSubscribedDataFeeds_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetSubscribedDataFeedsResponse" message="tns:IBillingPointService_GetSubscribedDataFeeds_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxExemptions">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieve all of the tax exemptions for the given billing point ID.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point ID to search for tax exemptions.&lt;/param&gt;
+	&lt;returns&gt;An array of tax exemption objects.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetTaxExemptions" message="tns:IBillingPointService_GetTaxExemptions_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetTaxExemptionsResponse" message="tns:IBillingPointService_GetTaxExemptions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsBillingPointAccessAllowed">
+      <wsdl:documentation>	&lt;summary&gt;
+ Determines if the user has access to read data or make data changes to the billing point ID.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point ID to determine if the user has access.&lt;/param&gt;
+	&lt;param name="userID"&gt;The user ID used to determine if access to the billing point is allowed.&lt;/param&gt;
+	&lt;returns&gt;True if the user has access to the billing point or false if the user does not have access to the billing point.&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/IsBillingPointAccessAllowed" message="tns:IBillingPointService_IsBillingPointAccessAllowed_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/IsBillingPointAccessAllowedResponse" message="tns:IBillingPointService_IsBillingPointAccessAllowed_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProfileChangeSubmit">
+      <wsdl:documentation>	&lt;summary&gt;
+ Save the profile associated with an existing billing point.
+ &lt;/summary&gt;
+	&lt;param name="profileChangeData"&gt;Data detailing the information needed to save the profile changes.&lt;/param&gt;
+	&lt;returns&gt;The success/failure of the operation along with any error/warning messages.&lt;/returns&gt;
+	&lt;remarks&gt;The property profileChangeData.Profile.MailingAddress.TaxLocation is ignored and not saved by this method.
+ Note that some numeric value must still be provided for this property, as it is non-nullable; omitting the element
+ entirely from the SOAP XML contents is also an option.&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/ProfileChangeSubmit" message="tns:IBillingPointService_ProfileChangeSubmit_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/ProfileChangeSubmitResponse" message="tns:IBillingPointService_ProfileChangeSubmit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubscribedDataFeedChangeSubmit">
+      <wsdl:documentation>	&lt;summary&gt;
+ Save subscribed data feed changes for a billing point.
+ &lt;/summary&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/SubscribedDataFeedChangeSubmit" message="tns:IBillingPointService_SubscribedDataFeedChangeSubmit_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/SubscribedDataFeedChangeSubmitResponse" message="tns:IBillingPointService_SubscribedDataFeedChangeSubmit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TaxExemptionChangeSubmit">
+      <wsdl:documentation>	&lt;summary&gt;
+ Save tax exemption settings for billing point
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point ID to save tax exemption data for.&lt;/param&gt;
+	&lt;param name="exemptionChangeData"&gt;Represents tax exemption change.&lt;/param&gt;
+	&lt;param name="userName"&gt;Name of user making request&lt;/param&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/TaxExemptionChangeSubmit" message="tns:IBillingPointService_TaxExemptionChangeSubmit_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/TaxExemptionChangeSubmitResponse" message="tns:IBillingPointService_TaxExemptionChangeSubmit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateMailingAddress">
+      <wsdl:documentation>	&lt;summary&gt;
+ Performs external address validation on the provided mailing address.
+ &lt;/summary&gt;
+	&lt;param name="mailingAddress"&gt;Mailing address data to validate.&lt;/param&gt;
+	&lt;returns&gt;An object indicating of the address is valid, needs correction, invalid, or address validation failed.&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/ValidateMailingAddress" message="tns:IBillingPointService_ValidateMailingAddress_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointService/ValidateMailingAddressResponse" message="tns:IBillingPointService_ValidateMailingAddress_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IBillingPointServiceRest">
+    <wsdl:documentation>	&lt;summary&gt;
+ Process billing point data requests. (REST only)
+ &lt;/summary&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+    <wsdl:operation name="GetBillingPointProfile">
+      <wsdl:documentation>	&lt;summary&gt;
+ Retrieve the billing point profile information for the given billing point id.
+ &lt;/summary&gt;
+	&lt;param name="billingPointID"&gt;The billing point for the profile you wish to retrieve&lt;/param&gt;
+	&lt;returns&gt;&lt;/returns&gt;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointServiceRest/GetBillingPointProfile" message="tns:IBillingPointService_GetBillingPointProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://hickorytech.com/suitesolution/client/service/IBillingPointServiceRest/GetBillingPointProfileResponse" message="tns:IBillingPointService_GetBillingPointProfile_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IBillingPointService" type="tns:IBillingPointService">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IBillingPointService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetBillingPointProfile">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointServiceRest/GetBillingPointProfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBillingPointSubmit">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/AddBillingPointSubmit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AlternateAddressChangeSubmit">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/AlternateAddressChangeSubmit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccountInfoChangeSubmit">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/AccountInfoChangeSubmit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBillingPoint">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/DeleteBillingPoint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCustomer">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/DeleteCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountInfo">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAccountInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAddBillingPointReasonCodes">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAddBillingPointReasonCodes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableAccountTypes">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableAccountTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableAgents">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableAgents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableBillGroups">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableBillGroups" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableMarkets">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableMarkets" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableMediaTypes">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableMediaTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSecurityRoles">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableSecurityRoles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableStates">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetAvailableStates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBillingPointAddress">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillingPointAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBillingPointAlternateAddress">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillingPointAlternateAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBillingPointIDsForCustomer">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillingPointIDsForCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBillViewSuppressionReasons">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetBillViewSuppressionReasons" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerAgent">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetCustomerAgent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDropBoxLocations">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetDropBoxLocations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrintFileSuppressionReasons">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetPrintFileSuppressionReasons" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSubscribedDataFeeds">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetSubscribedDataFeeds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxExemptions">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/GetTaxExemptions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsBillingPointAccessAllowed">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/IsBillingPointAccessAllowed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProfileChangeSubmit">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/ProfileChangeSubmit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubscribedDataFeedChangeSubmit">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/SubscribedDataFeedChangeSubmit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TaxExemptionChangeSubmit">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/TaxExemptionChangeSubmit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateMailingAddress">
+      <soap:operation soapAction="http://hickorytech.com/suitesolution/client/service/IBillingPointService/ValidateMailingAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebHttpBinding_IBillingPointServiceRest" type="tns:IBillingPointServiceRest">
+    <wsp:PolicyReference URI="#WebHttpBinding_IBillingPointServiceRest_policy" />
+    <wsdl:operation name="GetBillingPointProfile">
+      <wsdl:input />
+      <wsdl:output />
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BillingPointService">
+    <wsdl:port name="BasicHttpBinding_IBillingPointService" binding="tns:BasicHttpBinding_IBillingPointService">
+      <soap:address location="https://col-uat-ss1:8018/BillingPointService" />
+    </wsdl:port>
+    <wsdl:port name="WebHttpBinding_IBillingPointServiceRest" binding="tns:WebHttpBinding_IBillingPointServiceRest" />
+  </wsdl:service>
+</wsdl:definitions>
